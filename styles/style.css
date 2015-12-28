@@ -1,0 +1,16 @@
+.footer{
+	position: absolute;
+	bottom:0px;
+}
+#addButtonDiv,#placeOrderDiv{
+	padding-top: 5px;
+}
+
+#addItemButton {
+	background-color: #3498db;
+	margin: auto;
+}
+#placeOrderButton{
+	margin: auto;
+	background-color: #2ecc71;
+}
