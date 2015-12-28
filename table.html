@@ -29,8 +29,8 @@
 							<div class = "form-group">
 								<label class  = "col-md-2 col-sm-2 control-label" for = "tableNo">Table #</label>
 								<div class = "col-sm-6 col-md-6">
-									<select required aria-required = "true" class  = "form-control" id = "tableNo">
-										<option>Select Table </option>
+									<select class  = "form-control" id = "tableNo" required>
+										<option value = "">Select Table </option>
 										<option value = "1">Table 1</option>
 										<option value = "2">Table 2</option>
 										<option value = "3">Table 3</option>
@@ -74,7 +74,7 @@
 							</div>
 						
 							<div class = "form-group col-md-6 col-sm-6" id = "addButtonDiv" align = "center">
-									<button type = "submit" id = "placeOrderButton" class = "btn"> Place Order</button>
+									<button type = "submit" id = "placeOrderButton" class = "btn">Place Order</button>	 
 							</div>
 							
 						</form>
@@ -83,9 +83,17 @@
 			</div>
 		</div>
 	</div>
-	<footer class = "footer"></footer>
+	<footer class = "footer"><nav class  = "navbar navbar-fixed-bottom navbar-inverse"><center>Hello</center></nav></footer>
 
 
 </body>
 <script src = "scripts/scripts.js"></script>
+<script type="text/javascript">
+	var dataRef = new Firebase('https://restaurant-billing.firebaseio.com/');
+	$('#newOrder').submit(function(){
+		var tableNo = $('#tableNo').val();
+		alert(tableNo);
+
+	});
+</script>
 </html>
