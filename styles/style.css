@@ -1,6 +1,7 @@
 .footer{
 	position: absolute;
 	bottom:0px;
+	width: 100%;
 }
 #addButtonDiv,#placeOrderDiv{
 	padding-top: 5px;

@@ -8,7 +8,7 @@
 	<link rel="stylesheet" href="styles/bootstrap.min.css">
 	<link rel="stylesheet" href="styles/normalize.css">
 	<link rel="stylesheet" href="styles/style.css">
-	<script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+	<script src='https://cdn.firebase.com/js/client/2.3.2/firebase.js'></script>
 	<script src="scripts/jquery.min.js"></script>
 	<script src="scripts/bootstrap.min.js"></script>
 	
@@ -34,9 +34,9 @@
 										<option value = "1">Table 1</option>
 										<option value = "2">Table 2</option>
 										<option value = "3">Table 3</option>
-										<option value = "1">Table 4</option>
-										<option value = "1">Table 5</option>
-										<option value = "1">Table 6</option>
+										<option value = "4">Table 4</option>
+										<option value = "5">Table 5</option>
+										<option value = "6">Table 6</option>
 									</select>
 								</div>
 							</div>
@@ -45,7 +45,7 @@
 								<label class = "col-md-2 col-sm-2 control-label" for ="items">Item</label>
 
 								<div class = "col-md-6 col-sm-6">
-									<select required = "required" class  = "form-control items">
+									<select required = "required" class  = "form-control itemListing">
 										<option selected>--Choose--</option>
 										<optgroup label = "Biriyani">
 											<option value = "Chicken Biriyani">Chicken Biriyani</option>
@@ -62,7 +62,7 @@
 								</div>
 								<label class = "control-label col-md-1 col-sm-1">Quantity</label>
 								<div class = "col-md-2 col-sm-2">
-									<input type = "number" class = "form-control">
+									<input class = "itemQnty" type = "number" class = "form-control">
 								</div>
 								
 
@@ -83,7 +83,7 @@
 			</div>
 		</div>
 	</div>
-	<footer class = "footer"><nav class  = "navbar navbar-fixed-bottom navbar-inverse"><center>Hello</center></nav></footer>
+	<footer class = "footer"><div class = "container"><center>Swifttote Technologies Pvt Ltd</center></div></footer>
 
 
 </body>
@@ -92,7 +92,16 @@
 	var dataRef = new Firebase('https://restaurant-billing.firebaseio.com/');
 	$('#newOrder').submit(function(){
 		var tableNo = $('#tableNo').val();
-		alert(tableNo);
+		var tableRef = dataRef.child(tableNo);
+
+		var itemsList = {};
+		$('.addItemBox').each(function(index){
+			var item =  $(this).find("select").val();
+			var quantity = $(this).find("input").val();
+			var itemList  = {"item":item,"quantity":quantity};
+			itemsList.push(itemList);
+		});
+		tableRef.set({items:itemsList,status:'placed'});
 
 	});
 </script>
