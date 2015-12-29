@@ -16,9 +16,13 @@
 <body>
 	<nav class = "navbar navbar-default"></nav>
 	<div class = "container-fluid">
-
 		<div class = "row">	
-			<div class = "col-md-offset-2 col-sm-offset-2 col-md-8 col-sm-8">
+			<div id = "leftBar" class = "col-md-2 col-sm-2 col-xs-2">
+				<a href="table.html" class = "leftLink col-md-12 col-sm-12"><center>Tables</center></a>
+				<a href="kitchen.html" class = "leftLink col-md-12 col-sm-12"><center>Kitchen</center></a>
+				<a href="cash.html" class = "leftLink col-md-12 col-sm-12"><center>Cash Counter</center></a>
+			</div>
+			<div id = "mainContainer" class = "col-md-offset-1 col-xs-8 col-md-8 col-sm-8">
 				<div class = "panel panel-default">
 					<div class  = "panel-heading">
 						<strong>New Order</strong>
@@ -60,9 +64,9 @@
 									</select>
 								
 								</div>
-								<label class = "control-label col-md-1 col-sm-1">Quantity</label>
+								<label class = "control-label col-md-2 col-sm-2">Quantity</label>
 								<div class = "col-md-2 col-sm-2">
-									<input class = "itemQnty" type = "number" class = "form-control">
+									<input class = "itemQnty form-control" type = "number">
 								</div>
 								
 
@@ -83,7 +87,7 @@
 			</div>
 		</div>
 	</div>
-	<footer class = "footer"><div class = "container"><center>Swifttote Technologies Pvt Ltd</center></div></footer>
+	<footer><div class = "container"><center>Swifttote Technologies Pvt Ltd</center></div></footer>
 
 
 </body>
@@ -94,7 +98,7 @@
 		var tableNo = $('#tableNo').val();
 		var tableRef = dataRef.child(tableNo);
 
-		var itemsList = {};
+		var itemsList = [];
 		$('.addItemBox').each(function(index){
 			var item =  $(this).find("select").val();
 			var quantity = $(this).find("input").val();
