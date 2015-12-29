@@ -23,6 +23,22 @@
         <a href="cash.html" class = "leftLink col-md-12 col-sm-12"><center>Cash Counter</center></a>
       </div>
       <div id = "mainContainer" class = "col-md-offset-1 col-xs-8 col-md-8 col-sm-8">
+
+        <div class = "pendingOrders">
+          <div class = "row">
+            <div class = "hiddenOrder col-md-6 col-sm-6">
+              <div class = "panel panel-default">
+                <div class = "panel-heading">Table 1</div>
+                <div class = "panel-body">
+                  <div class = "orderDetails col-md-8 col-sm-8">
+                  </div>
+                  <div class = "orderQnty col-md-4 col-sm-4">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       
       </div>
     </div>
@@ -34,19 +50,19 @@
 <script src = "scripts/scripts.js"></script>
 <script type="text/javascript">
   var dataRef = new Firebase('https://restaurant-billing.firebaseio.com/');
-  $('#newOrder').submit(function(){
-    var tableNo = $('#tableNo').val();
-    var tableRef = dataRef.child(tableNo);
-
-    var itemsList = [];
-    $('.addItemBox').each(function(index){
-      var item =  $(this).find("select").val();
-      var quantity = $(this).find("input").val();
-      var itemList  = {"item":item,"quantity":quantity};
-      itemsList.push(itemList);
-    });
-    tableRef.set({items:itemsList,status:'placed'});
-
+  dataRef.on("value",function(snapshot){
+    var data = snapshot.val();
+    for(var tableNo in data){
+      if(data.hasOwnProperty(tableNo)){
+        if (data[tableNo].tableStatus == 'placed') {
+          console.log("Table No "+ tableNo);
+          var itemsList = data[tableNo].items;
+          displayItem(itemsList,tableNo);
+          
+            
+        }
+      }
+    }
   });
 </script>
 </html>
