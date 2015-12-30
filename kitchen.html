@@ -24,12 +24,12 @@
       </div>
       <div id = "mainContainer" class = "col-md-offset-1 col-xs-8 col-md-8 col-sm-8">
 
-        <div class = "pendingOrders">
-          <div class = "row">
-            <div class = "hiddenOrder col-md-6 col-sm-6">
+        <div id = "pendingOrders">
+         
+            <div class = "hiddenOrder col-md-6 col-sm-10">
               <div class = "panel panel-default">
                 <div class = "panel-heading">Table 1</div>
-                <div class = "panel-body">
+                <div class = "panel-body" style = "height:4em; overflow-y:auto;">
                   <div class = "orderDetails col-md-8 col-sm-8">
                   </div>
                   <div class = "orderQnty col-md-4 col-sm-4">
@@ -38,7 +38,7 @@
               </div>
             </div>
           </div>
-        </div>
+        
       
       </div>
     </div>
@@ -52,12 +52,14 @@
   var dataRef = new Firebase('https://restaurant-billing.firebaseio.com/');
   dataRef.on("value",function(snapshot){
     var data = snapshot.val();
+    var initialElement = $('.hiddenOrder').first()
+    $('#pendingOrders').html('');
     for(var tableNo in data){
+      console.log(tableNo);
       if(data.hasOwnProperty(tableNo)){
         if (data[tableNo].tableStatus == 'placed') {
-          console.log("Table No "+ tableNo);
           var itemsList = data[tableNo].items;
-          displayItem(itemsList,tableNo);
+          displayItem(itemsList,tableNo,initialElement);
           
             
         }
