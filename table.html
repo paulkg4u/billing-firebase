@@ -11,6 +11,7 @@
 	<script src='https://cdn.firebase.com/js/client/2.3.2/firebase.js'></script>
 	<script src="scripts/jquery.min.js"></script>
 	<script src="scripts/bootstrap.min.js"></script>
+	<script src = "scripts/bootstrapWizard.js"></script>
 	
 </head>
 <body>
@@ -23,66 +24,75 @@
 				<a href="cash.html" class = "leftLink col-md-12 col-sm-12"><center>Cash Counter</center></a>
 			</div>
 			<div id = "mainContainer" class = "col-md-offset-1 col-xs-8 col-md-8 col-sm-8">
-				<div class = "panel panel-default">
-					<div class  = "panel-heading">
-						<strong>New Order</strong>
-					</div>
-					
-					<div class = "panel-body">
-						<form action = "#" method = "POST" id = "newOrder" class = "form-horizontal">
-							<div class = "form-group">
-								<label class  = "col-md-2 col-sm-2 control-label" for = "tableNo">Table #</label>
-								<div class = "col-sm-6 col-md-6">
-									<select class  = "form-control" id = "tableNo" required>
-										<option value = "">Select Table </option>
-										<option value = "1">Table 1</option>
-										<option value = "2">Table 2</option>
-										<option value = "3">Table 3</option>
-										<option value = "4">Table 4</option>
-										<option value = "5">Table 5</option>
-										<option value = "6">Table 6</option>
-									</select>
+				<center>
+			    	 <ul class="nav nav-pills" style = "margin-bottom:3em;">
+			        	<li style = "width:30%;"><a data-toggle = "tab" href="#tab1">New Order</a></li>
+			        	<li style = "width:30%;"><a href="#tab2" data-toggle = "tab">Pending</a></li>
+			        	<li style = "width:30%;"><a data-toggle = "tab" href="#tab3">Ready</a></li>
+			      	</ul>
+			    </center>
+				<div class ="tab-content">
+					<div class = "tab-pane" id = "tab1">
+						<div class = "panel-body">
+							<form action = "#" method = "POST" id = "newOrder" class = "form-horizontal">
+								<div class = "form-group">
+									<label class  = "col-md-2 col-sm-2 control-label" for = "tableNo">Table #</label>
+									<div class = "col-sm-6 col-md-6">
+										<select class  = "form-control" id = "tableNo" required>
+											<option value = "">Select Table </option>
+											<option value = "1">Table 1</option>
+											<option value = "2">Table 2</option>
+											<option value = "3">Table 3</option>
+											<option value = "4">Table 4</option>
+											<option value = "5">Table 5</option>
+											<option value = "6">Table 6</option>
+										</select>
+									</div>
 								</div>
-							</div>
-							<div id = "itemsList">
-							<div class = "addItemBox form-group">
-								<label class = "col-md-2 col-sm-2 control-label" for ="items">Item</label>
+								<div id = "itemsList">
+								<div class = "addItemBox form-group">
+									<label class = "col-md-2 col-sm-2 control-label" for ="items">Item</label>
 
-								<div class = "col-md-6 col-sm-6">
-									<select required = "required" class  = "form-control itemListing">
-										<option selected>--Choose--</option>
-										<optgroup label = "Biriyani">
-											<option value = "Chicken Biriyani">Chicken Biriyani</option>
-											<option value = "Fish Biriyani">Fish Biriyani</option>
-											<option value = "Beef Biriyani">Beef Biriyani</option>
-											<option value = "Veg Biriyani">Veg Biriyani</option>	
-										</optgroup>
-										<optgroup label = "Drinks">
-											<option value = "freshLime">Fresh Lime</option>
-										</optgroup>
+									<div class = "col-md-6 col-sm-6">
+										<select required = "required" class  = "form-control itemListing">
+											<option selected>--Choose--</option>
+											<optgroup label = "Biriyani">
+												<option value = "Chicken Biriyani">Chicken Biriyani</option>
+												<option value = "Fish Biriyani">Fish Biriyani</option>
+												<option value = "Beef Biriyani">Beef Biriyani</option>
+												<option value = "Veg Biriyani">Veg Biriyani</option>	
+											</optgroup>
+											<optgroup label = "Drinks">
+												<option value = "freshLime">Fresh Lime</option>
+											</optgroup>
 
-									</select>
-								
+										</select>
+									
+									</div>
+									<label class = "control-label col-md-2 col-sm-2">Quantity</label>
+									<div class = "col-md-2 col-sm-2">
+										<input class = "itemQnty form-control" type = "number">
+									</div>
+									
+
 								</div>
-								<label class = "control-label col-md-2 col-sm-2">Quantity</label>
-								<div class = "col-md-2 col-sm-2">
-									<input class = "itemQnty form-control" type = "number">
 								</div>
-								
 
-							</div>
-							</div>
-
-							<div class = "form-group col-md-6 col-sm-6" id = "placeOrderDiv" align = "center">
-									<button type = "button" id = "addItemButton" class = "btn"> Add Another Item</button>
-							</div>
-						
-							<div class = "form-group col-md-6 col-sm-6" id = "addButtonDiv" align = "center">
-									<button type = "submit" id = "placeOrderButton" class = "btn">Place Order</button>	 
-							</div>
+								<div class = "form-group col-md-6 col-sm-6" id = "placeOrderDiv" align = "center">
+										<button type = "button" id = "addItemButton" class = "btn"> Add Another Item</button>
+								</div>
 							
-						</form>
+								<div class = "form-group col-md-6 col-sm-6" id = "addButtonDiv" align = "center">
+										<button type = "submit" id = "placeOrderButton" class = "btn">Place Order</button>	 
+								</div>
+								
+							</form>
+						</div>
 					</div>
+					<div class = "tab-pane" id = "tab2"></div>
+					<div class = "tab-pane" id = "tab3"></div>
+				</div>
+				
 				</div>
 			</div>
 		</div>

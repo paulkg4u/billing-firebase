@@ -43,4 +43,5 @@ a,a:hover{
 }
 .hiddenOrder{
 	display: none;
+	padding-left:0px;
 }

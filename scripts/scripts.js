@@ -1,5 +1,7 @@
 $(document).ready(function(){
-	
+	$('#mainContainer').bootstrapWizard({
+		'tabClass':'nav nav-pills'
+	});
 $('#addItemButton').click(function(){
 	var newItemHtml = $('.addItemBox').first().clone();
 	$('#itemsList').append(newItemHtml);
