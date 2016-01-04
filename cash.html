@@ -11,6 +11,7 @@
   <script src='https://cdn.firebase.com/js/client/2.3.2/firebase.js'></script>
   <script src="scripts/jquery.min.js"></script>
   <script src="scripts/bootstrap.min.js"></script>
+  <script src = "scripts/bootstrapWizard.js"></script>
   
 </head>
 <body>
@@ -25,10 +26,42 @@
       <div id = "mainContainer" class = "col-md-offset-1 col-xs-8 col-md-8 col-sm-8">
        <center>
       <ul class="nav nav-pills" style = "margin-bottom:3em;">
-        <li class="active" style = "width:45%;"><a href="#">Served Orders</a></li>
-        <li style = "width:45%;"><a href="#">Printed Bills</a></li>
+        <li style = "width:45%;"><a data-toggle = "tab" href="#tab1">Served Orders</a></li>
+        <li style = "width:45%;"><a data-toggle = "tab" href="#tab2">Printed Bills</a></li>
       </ul>
       </center>
+      <div class = "tab-content">
+        <div class = "tab-pane" id = "tab1">
+          <div id = "servedOrders">
+            <div class = "hiddenOrder col-md-6 col-sm-10">
+              <div class = "panel panel-default">
+                <div class = "panel-heading">Table 1</div>
+                <div class = "panel-body" style = "height:4em; overflow-y:auto;">
+                  <div class = "orderDetails col-md-8 col-sm-8">
+                  </div>
+                  <div class = "orderQnty col-md-4 col-sm-4">
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+        <div class = "tab-pane" id = "tab2">
+          <div id = "printedOrders">
+            <div class = "hiddenOrder col-md-6 col-sm-10">
+              <div class = "panel panel-default">
+                <div class = "panel-heading">Table 1</div>
+                <div class = "panel-body" style = "height:4em; overflow-y:auto;">
+                  <div class = "orderDetails col-md-8 col-sm-8">
+                  </div>
+                  <div class = "orderQnty col-md-4 col-sm-4">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div></div>
+
+      </div>
       </div>
     </div>
   </div>
@@ -39,19 +72,30 @@
 <script src = "scripts/scripts.js"></script>
 <script type="text/javascript">
   var dataRef = new Firebase('https://restaurant-billing.firebaseio.com/');
-  $('#newOrder').submit(function(){
-    var tableNo = $('#tableNo').val();
-    var tableRef = dataRef.child(tableNo);
-
-    var itemsList = [];
-    $('.addItemBox').each(function(index){
-      var item =  $(this).find("select").val();
-      var quantity = $(this).find("input").val();
-      var itemList  = {"item":item,"quantity":quantity};
-      itemsList.push(itemList);
-    });
-    tableRef.set({items:itemsList,status:'placed'});
-
+  dataRef.on("value",function(snapshot){
+    var data = snapshot.val();
+    var initialElementPending = $('.hiddenOrder').first();
+    var initialElementPreparing = $('.hiddenOrder').first();
+    $('#servedOrders').html('');
+    $('#printedOrders').html('');
+    
+        for(order in data){
+          var orderDetails = data[order];
+          if (orderDetails.orderStatus == 'served') {
+            var itemsList = orderDetails.items;
+            var tableNo = orderDetails.tableNo;
+            displayServedItem(itemsList,tableNo,initialElementPending,order);
+            
+            
+          }
+           if (orderDetails.orderStatus =='billed') {
+            var itemsList = orderDetails.items;
+            var tableNo = orderDetails.tableNo;
+            displayPrintedItem(itemsList,tableNo,initialElementPending,order);
+            
+            
+          }
+        }
   });
 </script>
 </html>

@@ -89,8 +89,36 @@
 							</form>
 						</div>
 					</div>
-					<div class = "tab-pane" id = "tab2"></div>
-					<div class = "tab-pane" id = "tab3"></div>
+					<div class = "tab-pane" id = "tab2">
+						<div id = "pendingOrders">
+				            <div class = "hiddenOrder col-md-6 col-sm-10">
+				              <div class = "panel panel-default">
+				                <div class = "panel-heading">Table 1</div>
+				                <div class = "panel-body" style = "height:4em; overflow-y:auto;">
+				                  <div class = "orderDetails col-md-8 col-sm-8">
+				                  </div>
+				                  <div class = "orderQnty col-md-4 col-sm-4">
+				                  </div>
+				                </div>
+				              </div>
+				            </div>
+				          </div>
+					</div>
+					<div class = "tab-pane" id = "tab3">
+						<div id = "readyOrders">
+				            <div class = "hiddenOrder col-md-6 col-sm-10">
+				              <div class = "panel panel-default">
+				                <div class = "panel-heading">Table 1</div>
+				                <div class = "panel-body" style = "height:4em; overflow-y:auto;">
+				                  <div class = "orderDetails col-md-8 col-sm-8">
+				                  </div>
+				                  <div class = "orderQnty col-md-4 col-sm-4">
+				                  </div>
+				                </div>
+				              </div>
+				            </div>
+				          </div>	
+					</div>
 				</div>
 				
 				</div>
@@ -108,14 +136,40 @@
 		var tableNo = $('#tableNo').val();
 		var tableRef = dataRef.child(tableNo);
 
-		var itemsList = [];
+		var orderBasket = [];
 		$('.addItemBox').each(function(index){
 			var item =  $(this).find("select").val();
 			var quantity = $(this).find("input").val();
 			var itemList  = {"item":item,"quantity":quantity};
-			itemsList.push(itemList);
+			orderBasket.push(itemList);
 		});
-		tableRef.set({items:itemsList,tableStatus:'placed'});
+		dataRef.push({items:orderBasket,orderStatus:'placed',tableNo:tableNo});
+
+	});
+	dataRef.on("value",function(snapshot){
+		console.log("change");
+	var data = snapshot.val();
+    var initialElement = $('.hiddenOrder').first();
+    $('#pendingOrders').html('');
+    $('#readyOrders').html('');
+    
+        for(order in data){
+          var orderDetails = data[order];
+          if (orderDetails.orderStatus == 'placed') {
+            var itemsList = orderDetails.items;
+            var tableNo = orderDetails.tableNo;
+            displayPendingItem(itemsList,tableNo,initialElement,order);
+            
+            
+          }
+           if (orderDetails.orderStatus =='ready') {
+            var itemsList = orderDetails.items;
+            var tableNo = orderDetails.tableNo;
+            displayReadyItem(itemsList,tableNo,initialElement,order);
+            
+            
+          }
+        }
 
 	});
 </script>
